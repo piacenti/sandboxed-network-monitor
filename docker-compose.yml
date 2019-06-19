@@ -19,7 +19,7 @@ services:
     container_name: client
     volumes:
       - "./mitmproxy:/app/mitmproxy"
-      - "./application:/app/javaApp"
+      - "./application:/app/files"
     ports:
       - "8090:8080"
       - "8091:8443"
