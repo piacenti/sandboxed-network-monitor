@@ -22,6 +22,8 @@ You should have both docker and docker-compose installed.
 
 On a different terminal window run "docker exec -ti client /bin/bash". That should get you in the context of the client container any outgoing connections from this container using port 80 or 443 should be registered or interceptable by the proxy (more ports can be configured by editting run.sh). You may test it out by running curl requests (they should show up in http://localhost:8081). For HTTPS requests you may need to install the certificates into the programs that will be making requests or use -k flag with curl. For this project java was already setup to work with both http and https by installing the proxy's certificates in the java cacerts (see run.sh for an example). Proxy certificates should be in folder "mitmproxy" inside the container. A docker volume is setup to link folder application (in the same directory as the docker-compose.yml file) to folder /app/files inside the client container. 
 
+You may also have to edit the ports exposed on the client container depending on what ports your application expects to use.
+
 This setup uses mitmproxy but this approach should also work with other proxys. For more information about mitmproxy see https://docs.mitmproxy.org/stable/tools-mitmweb/
 
 ## How Works
