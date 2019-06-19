@@ -26,6 +26,6 @@ You may also have to edit the ports exposed on the client container depending on
 
 This setup uses mitmproxy but this approach should also work with other proxys. For more information about mitmproxy see https://docs.mitmproxy.org/stable/tools-mitmweb/
 
-## How Works
+## How it Works
 
 This setup is based on using docker to create an internal network with two containers. Docker compose puts those containers automatically in the same network. The client uses iptables firewall rules that redirect outgoing traffic to a local port which is then redirected to the proxy using Redsocks. Iptables are not recommended to use domain/host names since it may not work as expected and that is the reason for using iptables in combination with Redsocks to route traffic to the proxy. 
