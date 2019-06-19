@@ -15,7 +15,7 @@ You should have both docker and docker-compose installed.
 
 * Clone this project
 * On a terminal window go to the cloned project folder
-* Run "docker-compose up" and wait until the containers are up and running
+* Run "docker-compose up" and wait until the containers are built up and running
 * Open browser on page "http://localhost:8081" and verify that the verification requests have gone through
 
 ## Interacting With The Proxy
