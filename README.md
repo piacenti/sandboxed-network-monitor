@@ -13,7 +13,7 @@ You should have both docker and docker-compose installed.
 
 ## Running
 
-* Clone this project
+* Clone this project (make sure that if running on Windows that the line endings are not messed up during cloning).
 * On a terminal window go to the cloned project folder
 * Run "docker-compose up" and wait until the containers are built up and running
 * Open browser on page "http://localhost:8081" and verify that the verification requests have gone through
