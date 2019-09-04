@@ -1,5 +1,4 @@
 FROM debian:latest
-LABEL maintainer="Bruno Amaro Almeida | brunoamaro.com"
 # Set the working directory to /app
 WORKDIR /app
 # Copy the current directory contents into the container at /app
