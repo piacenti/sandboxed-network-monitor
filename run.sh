@@ -12,6 +12,11 @@ iptables -t nat -A OUTPUT  -p tcp --dport 80 -j LOG --log-prefix='[redirect] '
 iptables -t nat -A OUTPUT  -p tcp --dport 443 -j REDIRECT --to-port 12345 
 iptables -t nat -A OUTPUT  -p tcp --dport 443 -j LOG --log-prefix='[redirect] '
 
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80 -j REDIRECT --to-port 12345 
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80 -j LOG --log-prefix='[redirect] '
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 443 -j REDIRECT --to-port 12345 
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 443 -j LOG --log-prefix='[redirect] '
+
 
 echo "Setting up java to accept certificates"
 echo -e "yes" | keytool -import -alias mitmproxy -file mitmproxy/mitmproxy-ca-cert.pem -keystore jdk-11.0.3+7-jre/lib/security/cacerts -storepass changeit 
