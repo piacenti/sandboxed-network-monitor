@@ -11,8 +11,6 @@ This project is meant to provide a setup for monitoring outgoing requests from a
 
 You should have both docker and docker-compose installed.
 
-Linux OS. Windows currently don't correctly support iptables in Docker for windows or in Windows Subsystem for Linux (WSL)
-
 ## Running
 
 * Clone this project
