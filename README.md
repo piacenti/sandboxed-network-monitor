@@ -1,5 +1,5 @@
 # network-monitor
-Tool for inspecting HTTP/HTTPS network traffic through a transparent proxy
+Tool for inspecting application outgoing HTTP/HTTPS network traffic through a transparent proxy
 
 ## Motivation
 
