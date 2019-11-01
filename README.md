@@ -19,7 +19,7 @@ The proxy will not be able to process localhost requests if you use your system 
 
 ## Pre-requisites
 
-You should have both docker and docker-compose installed.
+You should have both docker and docker-compose installed. For the browser (otpional) you need to have support for X11 (should be present on Linux, Xquartz for Mac and Xming for Windows).
 
 ## Running
 
