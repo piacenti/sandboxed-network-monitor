@@ -7,19 +7,18 @@ sed -i "s/vPROXY-SERVER/$PROXY_SERVER/g" /etc/redsocks.conf
 sed -i "s/vPROXY-PORT/$PROXY_PORT/g" /etc/redsocks.conf
 echo "Restarting redsocks and redirecting traffic via iptables"
 /etc/init.d/redsocks restart
-iptables -t nat -A OUTPUT  -p tcp --dport 80 -j REDIRECT --to-port 12345 
-iptables -t nat -A OUTPUT  -p tcp --dport 80 -j LOG --log-prefix='[redirect] '
-iptables -t nat -A OUTPUT  -p tcp --dport 443 -j REDIRECT --to-port 12345 
-iptables -t nat -A OUTPUT  -p tcp --dport 443 -j LOG --log-prefix='[redirect] '
 
-iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80 -j REDIRECT --to-port 12345 
-iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80 -j LOG --log-prefix='[redirect] '
-iptables-legacy -t nat -A OUTPUT  -p tcp --dport 443 -j REDIRECT --to-port 12345 
-iptables-legacy -t nat -A OUTPUT  -p tcp --dport 443 -j LOG --log-prefix='[redirect] '
+
+iptables -t nat -A OUTPUT  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
+iptables -t nat -A OUTPUT  -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
+
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
 
 
 echo "Setting up java to accept certificates"
 echo -e "yes" | keytool -import -alias mitmproxy -file mitmproxy/mitmproxy-ca-cert.pem -keystore jdk-11.0.3+7-jre/lib/security/cacerts -storepass changeit 
+echo -e "yes" | keytool -import -alias mitmproxy -file mitmproxy/mitmproxy-ca-cert.pem -keystore jdk8u232-b09-jre/lib/security/cacerts -storepass changeit 
 
 # make sure proxy is up before testing the connection
 ./wait-for-it.sh proxy:8081 -- echo "proxy is up"

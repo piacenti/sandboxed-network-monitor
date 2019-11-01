@@ -2,24 +2,43 @@ version: "3"
 services:
   proxy:
     image: "mitmproxy/mitmproxy"
-    command: mitmweb --web-iface 0.0.0.0
+    # insecure so that if we have local running self signed apps the proxy won't cause problems (502s) when dealing communication between the local apps
+    command: mitmweb --web-iface 0.0.0.0 --listen-port 8052 --ssl-insecure
     ports:
-      - "8080:8080"
+      - "8052:8052"
+      # the proxy is only reachable from localhost
       - "127.0.0.1:8081:8081"
     volumes:
       - "./mitmproxy:/home/mitmproxy/.mitmproxy"
     container_name: proxy
   client:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./client.Dockerfile
     image: sandboxed_app
+    container_name: client
     environment:
       PROXY_SERVER: proxy 
-      PROXY_PORT: 8080
+      PROXY_PORT: "8052"
     privileged: true
-    container_name: client
     volumes:
       - "./mitmproxy:/app/mitmproxy"
       - "./application:/app/files"
     ports:
-      - "8090:8080"
-      - "8091:8443"
+      - "8080:8080"
+      - "8443:8443"
+  browser:
+    build: 
+      context: .
+      dockerfile: ./browser.Dockerfile
+    image: browser_app
+    container_name: browser
+    environment:
+      PROXY_SERVER: proxy 
+      PROXY_PORT: "8052"
+      DISPLAY: "host.docker.internal:0"
+    privileged: true
+    volumes:
+      - "./mitmproxy:/app/mitmproxy"
+      - "./application:/app/files"
+
