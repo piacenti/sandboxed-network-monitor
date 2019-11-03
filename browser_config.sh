@@ -13,12 +13,15 @@ x11_host=$(echo "$DISPLAY" | sed  "s/:0//g")
 x11_ip=$(getent hosts $x11_host | awk '{ print $1 }')
 echo $x11_host
 echo $x11_ip
-
-iptables -t nat -A OUTPUT ! -d $x11_ip -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
-iptables -t nat -A OUTPUT ! -d $x11_ip -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
-
+#if blank then we're running on linux and there is no need for ip exclusion
+if [ "$x11_ip" = "" ]
+then
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
+iptables-legacy -t nat -A OUTPUT  -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
+else
 iptables-legacy -t nat -A OUTPUT ! -d $x11_ip  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
 iptables-legacy -t nat -A OUTPUT ! -d $x11_ip -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
+fi
 
 
 
@@ -30,7 +33,10 @@ curl http://example.com
 
 startfirefox &>/dev/null &
 # wait for firefox to start and create cert9.db so that we can trust certificates
-sleep 5
+while [ "$(find / -name cert9.db)" = "" ]
+do
+	sleep 1
+done
 echo "Setting up firefox to accept certificates"
 certificateFile="/app/mitmproxy/mitmproxy-ca-cert.pem"
 certificateName="mitmproxy" 

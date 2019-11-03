@@ -9,9 +9,6 @@ echo "Restarting redsocks and redirecting traffic via iptables"
 /etc/init.d/redsocks restart
 
 
-iptables -t nat -A OUTPUT  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
-iptables -t nat -A OUTPUT  -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
-
 iptables-legacy -t nat -A OUTPUT  -p tcp --dport 80:8051 -j REDIRECT --to-port 65001 
 iptables-legacy -t nat -A OUTPUT  -p tcp --dport 8053:65000 -j REDIRECT --to-port 65001 
 

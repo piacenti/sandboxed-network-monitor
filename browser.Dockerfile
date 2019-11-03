@@ -1,4 +1,4 @@
-FROM jess/firefox
+FROM jess/firefox@sha256:4b059c0cafa00c53a0e97249f5de0a338a957b406847150052ce7dd25acd2587
 WORKDIR /app
 ADD redsocks.conf /app
 ADD browser_config.sh /app
