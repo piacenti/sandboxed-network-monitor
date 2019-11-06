@@ -20,4 +20,4 @@ RUN ln -s /app/jdk-11.0.3+7-jre/bin/java /usr/bin/java11
 RUN ln -s /app/jdk8u232-b09-jre/bin/java /usr/bin/java8
 ENV JAVA_HOME="/app/jdk8u232-b09-jre"
 COPY redsocks.conf /etc/redsocks.conf
-ENTRYPOINT /bin/bash client_config.sh
+ENTRYPOINT /bin/bash scripts/client_config.sh

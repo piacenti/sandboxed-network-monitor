@@ -24,6 +24,7 @@ services:
     volumes:
       - "./mitmproxy:/app/mitmproxy"
       - "./application:/app/files"
+      - "./scripts:/app/scripts"
     ports:
       - "8080:8080"
       - "8443:8443"
@@ -42,4 +43,5 @@ services:
       - "./mitmproxy:/app/mitmproxy"
       - "./application:/app/files"
       - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - "./scripts:/app/scripts"
 
