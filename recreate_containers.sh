@@ -1,1 +1,1 @@
-docker-compose up --force-recreate --build
+docker-compose build client
